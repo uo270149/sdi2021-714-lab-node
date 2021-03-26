@@ -15,6 +15,7 @@ app.set('port', 8081); // puerto en el que se despliega la aplicación
 // Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig) // (app, param1, param2, etc.)
 require("./routes/rcanciones.js")(app, swig) // (app, param1, param2, etc.)
+require("./routes/rautores.js")(app, swig) // (app, param1, param2, etc.)
 
 // Lanzar el servidor
 app.listen(app.get('port'), function () {
