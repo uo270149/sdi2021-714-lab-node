@@ -104,12 +104,24 @@ module.exports = function (app, swig, gestorBD) {
             if (canciones == null) {
                 res.send("Error al recuperar la canción");
             } else {
-                let respuesta = swig.renderFile('views/bcancion.html', {
-                    cancion: canciones[0]
+                // Obtener comentarios de la canción
+                // El criterio es el id de la canción, obtenido anteriormente
+                gestorBD.obtenerComentarios(criterio, function (comentarios) {
+                    if (comentarios == null) {
+                        res.send("Error al recuperar los comentarios");
+                    } else {
+                        let respuesta = swig.renderFile('views/bcancion.html', {
+                            cancion: canciones[0],
+                            comentarios: comentarios
+                        });
+                        res.send(respuesta);
+                    }
                 });
-                res.send(respuesta);
+
             }
         });
+
+
     });
 
     app.get('/publicaciones', function (req, res) {
