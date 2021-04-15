@@ -12,7 +12,7 @@ module.exports = {
             } else {
                 let collection = db.collection('canciones');
                 collection.count(function (err, count) {
-                    collection.find(citerio).skip((pg - 1) * 4).limit(4).toArray(function (err, canciones) {
+                    collection.find(criterio).skip((pg - 1) * 4).limit(4).toArray(function (err, canciones) {
                         if (err) {
                             functionCallback(null);
                         } else {

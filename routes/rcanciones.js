@@ -92,7 +92,7 @@ module.exports = function (app, swig, gestorBD) {
             pg = 1;
         }
 
-        gestorBD.obtenerCanciones(criterio, pg, function (canciones, total) {
+        gestorBD.obtenerCancionesPg(criterio, pg, function (canciones, total) {
             if (canciones == null) {
                 res.send("Error al listar");
             } else {
@@ -261,7 +261,10 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 });
             } else {
-                next(new Error("Error al comprar la canción: eres su autor o ya la compraste anteriormente"));
+                //next(new Error("Error al comprar la canción: eres su autor o ya la compraste anteriormente"));
+                res.redirect("/errors" +
+                    "?mensaje=Error al comprar la canción: eres su autor o ya la compraste anteriormente" +
+                    "&tipoMensaje=alert-danger");
             }
         });
     });

@@ -40,7 +40,7 @@ routerUsuarioSession.use(function (req, res, next) {
 // Aplicar routerUsuarioSession
 app.use('/canciones/agregar', routerUsuarioSession);
 app.use('/publicaciones', routerUsuarioSession);
-app.use('/cancion/compras', routerUsuarioSession);
+app.use('/cancion/comprar', routerUsuarioSession);
 app.use('/compras', routerUsuarioSession);
 
 // routerUsuarioAutor
@@ -105,6 +105,7 @@ require("./routes/rusuarios.js")(app, swig, gestorBD) // (app, param1, param2, e
 require("./routes/rcanciones.js")(app, swig, gestorBD) // (app, param1, param2, etc.)
 require("./routes/rautores.js")(app, swig) // (app, param1, param2, etc.)
 require("./routes/rcomentarios.js")(app, swig, gestorBD) // (app, param1, param2, etc.)
+require("./routes/utils")(app, swig) // (app, param1, param2, etc.)
 
 app.get('/', function (req, res) {
     res.redirect('/tienda');
