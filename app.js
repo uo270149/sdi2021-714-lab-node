@@ -2,6 +2,9 @@
 let express = require('express');
 let app = express();
 
+let jwt = require('jsonwebtoken');
+app.set('jwt', jwt);
+
 let fs = require('fs');
 let https = require('https');
 
@@ -20,6 +23,39 @@ let swig = require('swig');
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+// routerUsuarioToken
+let routerUsuarioToken = express.Router();
+routerUsuarioToken.use(function (req, res, next) {
+    // Obtener el token, via headers
+    let token = req.headers['token'] || req.body.token || req.query.token;
+    if (token != null) {
+        // Verificar el token
+        jwt.verify(token, 'secreto', function (err, infoToken) {
+            if (err || (Date.now() / 1000 - infoToken.tiempo) > 240) {
+                res.status(403); // Forbidden
+                res.json({
+                    acceso: false,
+                    error: "Token inválido o caducado"
+                });
+                return;
+            } else {
+                // Dejamos correr la petición
+                res.usuario = infoToken.usuario;
+                next();
+            }
+        });
+    } else {
+        res.status(403); // Forbidden
+        res.json({
+            acceso: false,
+            mensaje: "No hay token"
+        });
+    }
+});
+
+// Aplicar routerUsuarioToken
+app.use('/api/cancion', routerUsuarioToken);
 
 let gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app, mongo);
