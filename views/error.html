@@ -1,1 +1,9 @@
 {% extends "base.html" %} {% block titulo %} AVISO IMPORTANTE {% endblock %}
+
+{% block contenido_principal %}
+
+<h2>AVISO IMPORTANTE</h2>
+
+<div class={{errores.tipoMensaje}}>{{errores.mensaje}}</div>
+
+{% endblock %}

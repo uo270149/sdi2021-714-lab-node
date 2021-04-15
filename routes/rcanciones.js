@@ -261,10 +261,18 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 });
             } else {
+                // Ejercicio complementario 1 sesion 9
                 //next(new Error("Error al comprar la canción: eres su autor o ya la compraste anteriormente"));
-                res.redirect("/errors" +
-                    "?mensaje=Error al comprar la canción: eres su autor o ya la compraste anteriormente" +
-                    "&tipoMensaje=alert-danger");
+                // Ejercicio complementario 2 sesion 9
+                //res.redirect("/errors" +
+                //  "?mensaje=Error al comprar la canción: eres su autor o ya la compraste anteriormente" +
+                //"&tipoMensaje=alert-danger");
+                // Ejercicio complementario 3 sesion 9
+                req.session.errores = {
+                    mensaje: 'Error al comprar la canción: eres su autor o ya la compraste anteriormente',
+                    tipoMensaje: 'alert-danger'
+                };
+                res.redirect('/errors');
             }
         });
     });
