@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th><a onclick="ordenarPorNombre()">Nombre</a></th>
-            <th>Genero</th>
+            <th><a onclick="ordenarPorGenero()">Genero</a></th>
             <th><a onclick="ordenarPorPrecio()">Precio</a></th>
             <th class="col-md-1"></th>
         </tr>
@@ -103,6 +103,20 @@
     var precioDsc = true;
 
     function ordenarPorNombre() {
+        if (precioDsc) {
+            canciones.sort(function (a, b) {
+                return parseFloat(a.precio) - parseFloat(b.precio);
+            });
+        } else {
+            canciones.sort(function (a, b) {
+                return parseFloat(b.precio) - parseFloat(a.precio);
+            });
+        }
+        actualizarTabla(canciones);
+        precioDsc = !precioDsc; // invertir
+    }
+
+    function ordenarPorGenero() {
         if (precioDsc) {
             canciones.sort(function (a, b) {
                 return parseFloat(a.precio) - parseFloat(b.precio);
